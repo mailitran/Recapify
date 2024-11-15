@@ -2,12 +2,16 @@
     "name": "spotify-authorization-code-pkce",
     "version": "1.0.0",
     "description": "Spotify Authorization Code with PKCE flow example",
+    "homepage": "https://mailitran.github.io/Recapify/",
     "scripts": {
-        "start": "http-server --cors public"
+        "start": "http-server --cors public",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "gh-pages": "^6.2.0",
         "http-server": "^14.1.1"
     }
 }
