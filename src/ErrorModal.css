@@ -1,0 +1,19 @@
+.modal-content {
+    background-color: #ffffff;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.modal-header {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-title {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
