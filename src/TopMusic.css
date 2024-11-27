@@ -1,0 +1,66 @@
+.box-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #c7c7c7;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.top-box {
+    background-color: #333333;
+    border-radius: 15px;
+    padding: 15px 15px 0px 15px;
+    color: #ffffff;
+}
+
+.top-box h5 {
+    text-transform: uppercase;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+}
+
+.top-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 5px 0;
+}
+
+.item-number {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 40px;
+}
+
+.artist-info, .track-info {
+    display: flex;
+    align-items: center;
+}
+
+.artist-circle, .track-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.artist-image, .track-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.artist-name, .track-name {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .artist-circle, .track-circle {
+        width: 50px;
+        height: 50px;
+    }
+}
