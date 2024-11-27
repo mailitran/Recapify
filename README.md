@@ -1,8 +1,16 @@
-# React + Vite
+# Recapify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The latest evolution of Spotify Wrapped, offering users personalized recaps of their music listening analytics all year long.
 
-Currently, two official plugins are available:
+## User Authentication
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Recapify is currently under development mode. Only users authorized on [Spotify for Developers](https://developer.spotify.com/) can authenticate with the app.
+
+## Running The App
+1. Open a terminal and run:
+    $ npm install
+
+2. Run:
+    $ npm run dev
+
+3. Open `http://localhost:5173` in a browser.
