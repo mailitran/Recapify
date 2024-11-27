@@ -8,9 +8,13 @@ Recapify is currently under development mode. Only users authorized on [Spotify 
 
 ## Running The App
 1. Open a terminal and run:
+    ```
     $ npm install
+    ```
 
 2. Run:
+    ```
     $ npm run dev
+    ```
 
 3. Open `http://localhost:5173` in a browser.
