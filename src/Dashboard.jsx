@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { clientId, tokenEndpoint, logOutClick } from './AuthUtil.jsx';
+import { Container, Row, Col } from 'react-bootstrap';
 import NavigationBar from './NavigationBar.jsx';
 import ErrorModal from './ErrorModal.jsx';
+import TopMusic from './TopMusic.jsx';
 
 function Dashboard() {
     const [accessToken, setAccessToken] = useState(null);
@@ -81,7 +83,19 @@ function Dashboard() {
 
     return (
         <>
-            {!error && !loading && <NavigationBar userData={userData} />}
+            <Container fluid>
+                {!error && !loading && (
+                    <>
+                        <NavigationBar userData={userData} />
+                        <Row className="mt-5">
+                            <Col lg={12}>
+                                <TopMusic />
+                            </Col>
+                        </Row>
+                        {/* Add more rows/columns for other components */}
+                    </>
+                )}
+            </Container>
 
             <ErrorModal
                 show={showErrorModal}
