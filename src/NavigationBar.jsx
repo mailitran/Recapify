@@ -3,7 +3,7 @@ import { logOutClick } from './AuthUtil.jsx';
 
 function NavigationBar({ userData }) {
     return (
-        <Navbar className="fixed-top w-100" data-bs-theme="dark" expand="lg">
+        <Navbar className="fixed-top w-100" data-bs-theme="dark" expand="lg" style={{ backgroundColor: '#181818' }}>
             <Container>
                 <Navbar.Brand
                     style={{
