@@ -14,12 +14,13 @@
   -moz-osx-font-smoothing: grayscale; */
 }
 
-div#root {
+body {
   background-color: var(--background-color);
-  margin: 0;
-  height: 100vh;
-  display: flex;
   color: white;
+}
+
+div#root {
+  display: flex;
 }
 
 /* a {
