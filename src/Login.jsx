@@ -3,7 +3,7 @@ import './Login.css';
 import { clientId, redirectUrl } from './AuthUtil.jsx';
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
-const scope = 'user-read-private user-read-email';
+const scope = 'user-read-private user-read-email user-top-read';
 
 function Login() {
     const redirectToSpotifyAuthorize = async () => {
