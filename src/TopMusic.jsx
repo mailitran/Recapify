@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Spinner } from 'react-bootstrap';
 import './TopMusic.css';
 
 const limit = 5;
 
 function TopItems() {
-    const [topArtists, setTopArtists] = useState(null);
-    const [topTracks, setTopTracks] = useState(null);
+    const [topArtists, setTopArtists] = useState([]);
+    const [topTracks, setTopTracks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         getTopMusic('artists');
@@ -22,18 +24,61 @@ function TopItems() {
                 headers: { 'Authorization': 'Bearer ' + access_token },
             });
 
+            if (!response.ok) {
+                throw new Error(`Failed to fetch top ${type}`);
+            }
+
             const data = await response.json();
-            console.log(data);
 
             if (type === 'artists') {
                 setTopArtists(data.items);
             } else if (type === 'tracks') {
                 setTopTracks(data.items);
-            }            
+            }
         } catch (err) {
-
+            console.error(err);
+            const errorMessage = err.response
+                ? `Error: ${err.response.status} ${err.response.statusText} - Failed to fetch top ${type}`
+                : err.message
+            setError(errorMessage);
+        } finally {
+            setLoading(false);
         }
     }
+
+    // Loading spinner
+    const renderLoading = () => (
+        <div className="text-center">
+            <Spinner animation="border" variant="primary" />
+        </div>
+    )
+
+    // Render top music (artists or tracks)
+    const renderTopItems = (items, type) => {
+        if (loading) return renderLoading();
+        if (error) return <div className="error-message">{error}</div>;
+
+        if (items.length === 0) {
+            return <div className="error-message">No {type} available.</div>;
+        }
+
+        return items.map((item, index) => (
+            <div key={index} className="top-item">
+                <span className="item-number">{index + 1}</span>
+                <div className={type === 'artist' ? "artist-info" : "track-info"}>
+                    <div className={type === 'artist' ? "artist-circle" : "track-circle"}>
+                        <img
+                            src={type === 'artist' ? item.images[0]?.url : item.album.images[0]?.url}
+                            alt={type === 'artist' ? item.name : item.name}
+                            className={type === 'artist' ? "artist-image" : "track-image"}
+                        />
+                    </div>
+                    <p className={type === 'artist' ? "artist-name" : "track-name"}>{item.name}</p>
+                </div>
+            </div>
+        ))
+    }
+
 
     return (
         <div className="container mt-5">
@@ -44,21 +89,7 @@ function TopItems() {
                     <Card className="top-box">
                         <Card.Body>
                             <h5>Top Artists</h5>
-                            {topArtists && topArtists.map((artist, index) => (
-                                <div key={index} className="top-item">
-                                    <span className="item-number">{index + 1}</span>
-                                    <div className="artist-info">
-                                        <div className="artist-circle">
-                                            <img
-                                                src={artist.images[0]?.url}
-                                                alt={artist.name}
-                                                className="artist-image"
-                                            />
-                                        </div>
-                                        <p className="artist-name">{artist.name}</p>
-                                    </div>
-                                </div>
-                            ))}
+                            {renderTopItems(topArtists, 'artist')}
                         </Card.Body>
                     </Card>
                 </Col>
@@ -68,21 +99,7 @@ function TopItems() {
                     <Card className="top-box">
                         <Card.Body>
                             <h5>Top Tracks</h5>
-                            {topTracks && topTracks.map((track, index) => (
-                                <div key={index} className="top-item">
-                                    <span className="item-number">{index + 1}</span>
-                                    <div className="track-info">
-                                        <div className="track-circle">
-                                            <img
-                                                src={track.album.images[0]?.url}
-                                                alt={track.name}
-                                                className="track-image"
-                                            />
-                                        </div>
-                                        <p className="track-name">{track.name}</p>
-                                    </div>
-                                </div>
-                            ))}
+                            {renderTopItems(topTracks, 'track')}
                         </Card.Body>
                     </Card>
                 </Col>
