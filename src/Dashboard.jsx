@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { clientId, tokenEndpoint, logOutClick } from './AuthUtil.jsx';
+import { clientId, tokenEndpoint, saveTokens, logOutClick } from './AuthUtil.jsx';
 import { Container, Row, Col } from 'react-bootstrap';
 import NavigationBar from './NavigationBar.jsx';
 import ErrorModal from './ErrorModal.jsx';
 import TopMusic from './TopMusic.jsx';
 
 function Dashboard() {
-    const [accessToken, setAccessToken] = useState(null);
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -15,16 +14,33 @@ function Dashboard() {
     // Fetch user data when the access token is available or refreshed
     useEffect(() => {
         getUserData();
-    }, [accessToken]);
+    }, []);
+
+    // Automatically refresh the token 1 minute before it expires (every 59 minutes)
+    useEffect(() => {
+        const expires_in = localStorage.getItem('expires_in');
+
+        const intervalId = setInterval(async () => {
+            const data = await refreshToken();
+            saveTokens(data);
+        }, (expires_in - 60) * 1000); // 59 minutes in milliseconds
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     // Fetch user data
     const getUserData = async () => {
         try {
-            const access_token = await checkToken();
+            const access_token = localStorage.getItem('access_token');
+
             const response = await fetch("https://api.spotify.com/v1/me", {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + access_token },
             });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
 
             const data = await response.json();
             setUserData(data);
@@ -36,43 +52,36 @@ function Dashboard() {
         }
     }
 
-    // Check if token is expired and refresh if necessary
-    const checkToken = async () => {
-        const accessToken = localStorage.getItem('access_token');
-        const expiryDate = new Date(localStorage.getItem('expiry_date'));
-        const now = new Date();
-
-        if (!accessToken || expiryDate <= now) {
-            const data = await refreshToken();
-            saveTokens(data);
-            return data.access_token;
-        }
-
-        return accessToken;
-    }
-
     // Refresh the access token if expired
     const refreshToken = async () => {
-        const refresh_token = localStorage.getItem('refresh_token');
+        try {
+            const refresh_token = localStorage.getItem('refresh_token');
 
-        const response = await fetch(tokenEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                client_id: clientId,
-                grant_type: 'refresh_token',
-                refresh_token: refresh_token
-            }),
-        });
+            const payload = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    grant_type: 'refresh_token',
+                    refresh_token: refresh_token,
+                    client_id: clientId
+                }),
+            }
 
-        if (!response.ok || !data.access_token) {
-            throw new Error('Failed to refresh access token');
+            const response = await fetch(tokenEndpoint, payload);
+            const data = await response.json();
+
+            if (!data.access_token) {
+                throw new Error('Failed to refresh access token');
+            }
+
+            return data;
+        } catch (err) {
+            console.error(err);
+            setError("Unable to refresh token. Please try logging in again");
+            setLoading(false);
         }
-
-        setAccessToken(localStorage.getItem('access_token'));
-        return await response.json();
     }
 
     // Close the error modal
