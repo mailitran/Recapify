@@ -23,9 +23,10 @@ function TopItems() {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + access_token },
             });
+            console.log(response);
 
             if (!response.ok) {
-                throw new Error(`Failed to fetch top ${type}`);
+                throw new Error(`Failed to fetch top ${type}: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
@@ -39,7 +40,7 @@ function TopItems() {
             console.error(err);
             const errorMessage = err.response
                 ? `Error: ${err.response.status} ${err.response.statusText} - Failed to fetch top ${type}`
-                : err.message
+                : `Network Error: ${err.message || 'Unknown error'}`;
             setError(errorMessage);
         } finally {
             setLoading(false);
