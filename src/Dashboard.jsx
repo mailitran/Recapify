@@ -16,14 +16,21 @@ function Dashboard() {
         getUserData();
     }, []);
 
-    // Automatically refresh the token 1 minute before it expires (every 59 minutes)
+    // Automatically refresh the token before it expires
     useEffect(() => {
-        const expires_in = localStorage.getItem('expires_in');
-
         const intervalId = setInterval(async () => {
-            const data = await refreshToken();
-            saveTokens(data);
-        }, (expires_in - 60) * 1000); // 59 minutes in milliseconds
+            let expiry_date = new Date(localStorage.getItem('expiry_date'));
+            const now = new Date();
+
+            const deadband = 5 * 60 * 1000;  // Set a 5 minute deadband (5 minutes in milliseconds)
+            expiry_date = new Date(expiry_date.getTime() - deadband);
+
+            if (expiry_date <= now) {
+                // Token has expired, refresh it
+                const data = await refreshToken();
+                saveTokens(data);
+            }
+        }, 60000); // 1 minute in milliseconds
 
         return () => clearInterval(intervalId);
     }, []);
