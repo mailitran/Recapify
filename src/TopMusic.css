@@ -35,6 +35,7 @@
 .artist-info, .track-info {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .artist-circle, .track-circle {
@@ -68,5 +69,17 @@
     .artist-circle, .track-circle {
         width: 50px;
         height: 50px;
+    }
+
+    .item-number {
+        font-size: 14px;
+    }
+
+    .top-box {
+        padding: 10px;
+    }
+
+    .artist-name, .track-name {
+        font-size: 14px;
     }
 }

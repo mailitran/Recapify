@@ -23,7 +23,6 @@ function TopItems() {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + access_token },
             });
-            console.log(response);
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch top ${type}: ${response.status} ${response.statusText}`);
