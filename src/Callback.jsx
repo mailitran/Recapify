@@ -12,16 +12,24 @@ function Callback() {
     useEffect(() => {
         if (code) {
             const fetchToken = async () => {
-                const data = await getToken(code);
-                saveTokens(data);
+                try {
+                    const data = await getToken(code);
+                    if (data && data.access_token) {
+                        saveTokens(data);
 
-                // Remove code parameter from URL
-                const url = new URL(window.location.href);
-                url.searchParams.delete("code");
-                const updatedUrl = url.search ? url.href : url.href.replace('?', '');
-                window.history.replaceState({}, document.title, updatedUrl);
-        
-                navigate('/dashboard');
+                        // Remove code parameter from URL
+                        const url = new URL(window.location.href);
+                        url.searchParams.delete("code");
+                        const updatedUrl = url.search ? url.href : url.href.replace('?', '');
+                        window.history.replaceState({}, document.title, updatedUrl);
+
+                        navigate('/dashboard');
+                    } else {
+                        console.error('Failed to fetch tokens');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             };
 
             fetchToken();
@@ -45,8 +53,13 @@ function Callback() {
                 code_verifier: code_verifier,
             }),
         };
-        
+
         const response = await fetch(tokenEndpoint, payload);
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch token: ${response.statusText}`);
+        }
+
         return await response.json();
     }
 
