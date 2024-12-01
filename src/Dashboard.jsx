@@ -3,7 +3,10 @@ import { clientId, tokenEndpoint, saveTokens, logOutClick } from './AuthUtil.jsx
 import { Container, Row, Col } from 'react-bootstrap';
 import NavigationBar from './NavigationBar.jsx';
 import ErrorModal from './ErrorModal.jsx';
+import ListeningTime from './ListeningTime.jsx';
 import TopMusic from './TopMusic.jsx';
+import TopGenre from './TopGenre.jsx';
+import TotalPlaylists from './TotalPlaylists.jsx';
 
 function Dashboard() {
     const [userData, setUserData] = useState(null);
@@ -107,6 +110,18 @@ function Dashboard() {
                             <Col lg={12}>
                                 <TopMusic />
                             </Col>
+                        </Row>
+                        <Row className="mt-5">
+                            <Col lg={12}>
+                                <TopGenre />
+                            </Col>
+                        </Row>
+                        <Row className="mt-5">
+                            <Col lg={12}>
+                                <ListeningTime />
+                            </Col>
+                            <TotalPlaylists />
+
                         </Row>
                         {/* Add more rows/columns for other components */}
                     </>
