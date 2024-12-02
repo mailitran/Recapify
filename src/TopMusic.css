@@ -11,39 +11,27 @@
     border-radius: 15px;
     padding: 15px;
     color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .top-box h5 {
     text-transform: uppercase;
     color: #aaaaaa;
-    margin-bottom: 20px;
-}
-
-.top-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 5px 0;
-}
-
-.item-number {
-    font-weight: bold;
-    font-size: 20px;
-    margin-right: 40px;
-}
-
-.artist-info, .track-info {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    /* margin-bottom: 20px; */
 }
 
 .artist-circle, .track-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    width: 400px;
+    height: 240px;
+    border-radius: 15px;
     overflow: hidden;
-    margin-right: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .artist-image, .track-image {
@@ -53,10 +41,12 @@
 }
 
 .artist-name, .track-name {
-    margin-top: 10px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: normal;
     color: white;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .error-message {
@@ -65,14 +55,11 @@
     margin-bottom: 10px;
 }
 
+/* Mobile screens */
 @media (max-width: 768px) {
     .artist-circle, .track-circle {
-        width: 50px;
-        height: 50px;
-    }
-
-    .item-number {
-        font-size: 14px;
+        width: 300px;
+        height: 180px;
     }
 
     .top-box {
@@ -80,6 +67,6 @@
     }
 
     .artist-name, .track-name {
-        font-size: 14px;
+        font-size: 16px;
     }
 }

@@ -3,7 +3,8 @@ import { Card, Row, Col, Spinner } from 'react-bootstrap';
 import './TopMusic.css';
 import './RecommendMusic';
 import RecommendMusic from './RecommendMusic';
-const limit = 5;
+
+const limit = 3;
 
 function TopItems() {
     const [topArtists, setTopArtists] = useState([]);
@@ -64,46 +65,34 @@ function TopItems() {
         }
 
         return items.map((item, index) => (
-            <div key={index} className="top-item">
-                <span className="item-number">{index + 1}</span>
-                <div className={type === 'artist' ? "artist-info" : "track-info"}>
-                    <div className={type === 'artist' ? "artist-circle" : "track-circle"}>
-                        <img
-                            src={type === 'artist' ? item.images[0]?.url : item.album.images[0]?.url}
-                            alt={type === 'artist' ? item.name : item.name}
-                            className={type === 'artist' ? "artist-image" : "track-image"}
-                        />
-                    </div>
-                    <p className={type === 'artist' ? "artist-name" : "track-name"}>{item.name}</p>
-                </div>
-            </div>
-        ))
+            <Col key={index} xs={12} sm={4} md={4} lg={4} className="mb-4">
+                <Card className="top-box">
+                    <Card.Body className="text-center">
+                        <div className={type === 'artist' ? "artist-square" : "track-square"}>
+                            <img
+                                src={type === 'artist' ? item.images[0]?.url : item.album.images[0]?.url}
+                                alt={type === 'artist' ? item.name : item.name}
+                                className={type === 'artists' ? "img-fluid artist-image" : "img-fluid track-image"}                            />
+                        </div>
+                        <p className={type === 'artist' ? "artist-name" : "track-name"}>{item.name}</p>
+                    </Card.Body>
+                </Card>
+            </Col>
+        ));
     }
 
 
     return (
         <div className="container mt-5">
-            <h3 className="box-title">Top Music</h3>
+            <h3 className="box-title">Top 3 Artists</h3>
             <Row className="mt-3">
-                {/* Top Artists Box */}
-                <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
-                    <Card className="top-box">
-                        <Card.Body>
-                            <h5>Top Artists</h5>
-                            {renderTopItems(topArtists, 'artist')}
-                        </Card.Body>
-                    </Card>
-                </Col>
-
-                {/* Top Tracks Box */}
-                <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
-                    <Card className="top-box">
-                        <Card.Body>
-                            <h5>Top Tracks</h5>
-                            {renderTopItems(topTracks, 'track')}
-                        </Card.Body>
-                    </Card>
-                </Col>
+                {/* Top Artist Cards */}
+                {renderTopItems(topArtists, 'artist')}
+            </Row>
+            <h3 className="box-title">Top 3 Tracks</h3>
+            <Row className="mt-3">
+                {/* Top Track Cards */}
+                {renderTopItems(topTracks, 'track')}
             </Row>
             {topTracks && <RecommendMusic topTracks={topTracks} />}
         </div>
