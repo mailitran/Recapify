@@ -89,20 +89,12 @@ const ListeningTime = () => {
     }
 
     return (
-        <div className="container mt-5">
-            <h3 className="box-title">Stats</h3>
-            <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
-                <Card className="top-box">
-                    <Card.Body>
-                        <h5>Listening Time by Day</h5>
-                        <Line data={chartData} />
-                    </Card.Body>
-                </Card>
-            </Col>
-            <Col>
-                <TotalPlaylists />
-            </Col>
-        </div>
+         <Card className="top-box">
+            <Card.Body>
+                <h5>Listening Time by Day</h5>
+                <Line data={chartData} />
+            </Card.Body>
+        </Card>
     );
 };
 
