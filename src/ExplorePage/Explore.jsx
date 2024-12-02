@@ -114,7 +114,7 @@ function Explore(){
                         
                         <Card bg="dark" text="white" className="p-4 rounded shadow">
                             <Card.Body>
-                                <h5>THIS WEEK: TOP SONGS</h5>
+                                <h5>THIS WEEK: TOP Albums</h5>
                                 <TopSongs chart={albums}/>
                             </Card.Body>
                         </Card>                        
