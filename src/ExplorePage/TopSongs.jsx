@@ -4,13 +4,13 @@ import NavigationBar from '../NavigationBar.jsx';
 import ErrorModal from '../ErrorModal.jsx';
 //import '../TopMusic.css'
 
-function TopSongs() {
+function TopSongs({chart}) {
     const [topSongs, setTopSongs] = useState([]);
-    const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
     
-    useEffect(() => {
-       getChartData("billboard-200");
+    useEffect( () => {
+      
+       getChartData(chart);
     },[]);
 
     const getChartData = async (chart) => {
@@ -29,7 +29,7 @@ function TopSongs() {
                     image: data.image,
                 }))
             );
-            
+            console.log(topSongs);
         } catch (err) {
             setError(err.message);
         }
@@ -42,7 +42,6 @@ function TopSongs() {
             </Alert>
         );
     }
-    const topSong = topSongs[0]; // Number 1 song
     const otherSongs = topSongs.slice(1, 5); // Songs ranked 2-5
 
   return (
@@ -50,21 +49,29 @@ function TopSongs() {
       {/* Left column: Number 1 song */}
       <Col md={6}>
         <div className="text-center">
-          {topSongs[0] !== undefined && <Image src={topSongs[0].image} rounded fluid style={{ maxWidth: '100%', maxHeight: '300px' }} />}
-          <h3 className="mt-3">#1 {topSongs[0].name}</h3>
-          <p>{topSongs[0].artist}</p>
+          {topSongs.length > 0 && (
+            <>
+              <Image src={topSongs[0].image} 
+              rounded 
+              fluid 
+              style={{ maxWidth: '100%', maxHeight: '300px' }} />
+              <h3 className="mt-3">#1 {topSongs[0].name}</h3>
+              <p>{topSongs[0].artist}</p>
+            </>
+          )}
+          
         </div>
       </Col>
 
       {/* Right column: Songs 2-5 */}
       <Col md={6}>
-        <ListGroup variant="flush">
+        <ListGroup className="list-group-dark" variant="flush">
           {otherSongs.map((song, index) => (
-            <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center">
+            <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
               <span className="fw-bold">#{index + 2}</span> {/* Rank */}
-              <div>
+              <div className="d-flex flex-column ms-2 align-items-end">
                 <div>{song.name}</div> {/* Song name */}
-                <div className="text-muted">{song.artist}</div> {/* Artist */}
+                <div className="text-secondary">{song.artist}</div> {/* Artist */}
               </div>
             </ListGroup.Item>
           ))}
@@ -72,24 +79,6 @@ function TopSongs() {
       </Col>
     </Row>
   );
-
-    // return (
-            
-    //         <Row>
-    //         {topSongs.map((track, index) => (
-    //             <Col key={index} md={6} lg={4} className="mb-4">
-    //                 <Card bg="dark" text="white" className="h-100">
-    //                     <Card.Img variant="top" src={track.image} />
-    //                     <Card.Body>
-    //                         <Card.Title>{track.title}</Card.Title>
-    //                         <Card.Text>{track.artist}</Card.Text>
-    //                     </Card.Body>
-    //                 </Card>
-    //             </Col>
-    //         ))}
-    //     </Row>
-        
-    // );
 }
 
 

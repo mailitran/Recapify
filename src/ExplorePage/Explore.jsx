@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Alert, Card } from 'react-bootstrap';
 import { clientId, tokenEndpoint, saveTokens, logOutClick } from '../AuthUtil.jsx';
 
 import NavigationBar from '../NavigationBar.jsx';
@@ -8,6 +8,8 @@ import TopSongs from './TopSongs.jsx';
 function Explore(){
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState(null);
+    const albums = "billboard-200";
+    const songs = "billboard-hot-100";
     
     useEffect(() => {
         getUserData();
@@ -96,10 +98,26 @@ function Explore(){
     return (
         <Container fluid>
             <>
+
             {/*<NavigationBar userData={userData} />*/}
                 <Row className="mt-5">
+                    <h2>Explore</h2>
+                    <hr/>
                     <Col lg={12}>
-                        <TopSongs />
+                    <Card bg="dark" text="white" className="p-4 rounded shadow">
+                        
+                        <Card.Body>
+                            <h5>THIS WEEK: TOP SONGS</h5>
+                            <TopSongs chart={songs}/>
+                        </Card.Body>
+                    </Card>
+                    
+                    <Card bg="dark" text="white" className="p-4 rounded shadow">
+                        <Card.Body>
+                            <h5>THIS WEEK: TOP SONGS</h5>
+                            <TopSongs chart={albums}/>
+                        </Card.Body>
+                    </Card>                        
                     </Col>
                 </Row>
             </>
