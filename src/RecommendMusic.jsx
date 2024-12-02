@@ -51,27 +51,33 @@ function RecommendMusic({ topTracks }) {
     return (        
     <div>
         <h2>Recommended Songs By Artists You Listen To:</h2>
-        {musicRec.length > 0 ? (
-            musicRec.map((track, index) => (
-                <div key={index} className = "rec-item">
-                    <span className="item-number">{index + 1}</span>
-                    <div className="track-info">
-                    <div className="track-circle">
-                        <img
-                            src={track.album.images[0]?.url}
-                            alt={track.name}
-                            className="track-image"
-                        />                       
-                    </div>
-                    <p>
+        <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
+        <Card className="rec-box">
+                <Card.Body className="rec-box">
+            {musicRec.length > 0 ? (
+                musicRec.map((track, index) => (
+                    <div key={index} className = "rec-item">
+                        <span className="item-number">{index + 1}</span>
+                        <div className="track-info">
+                        <div className="track-circle">
+                            <img
+                                src={track.album.images[0]?.url}
+                                alt={track.name}
+                                className="track-image"
+                            />                       
+                        </div>
+                        <p>
                             <strong>{track.name}</strong> by {track.artists.map(artist => artist.name).join(', ')}
                         </p>
-                    </div>
-                </div>
+                        </div>
+                     </div>
             ))
         ) : (
             <p>No recommendations available yet..</p>
         )}
+                    </Card.Body>
+            </Card>
+        </Col>
     </div>
 );
 }
