@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Spinner, Alert, Image, ListGroup } from 'react-bootstrap';
+import { Container, Card, Row, Col, Spinner, Alert, Image, ListGroup, Nav } from 'react-bootstrap';
 import NavigationBar from '../NavigationBar.jsx';
 import ErrorModal from '../ErrorModal.jsx';
 //import '../TopMusic.css'
@@ -13,8 +13,8 @@ function TopSongs({chart}) {
        getChartData(chart);
     },[]);
 
-    const getChartData = async (chart) => {
-        const url = `https://raw.githubusercontent.com/KoreanThinker/billboard-json/main/${chart}/recent.json`;
+  const getChartData = async (chart) => {
+    const url = `https://raw.githubusercontent.com/KoreanThinker/billboard-json/main/${chart}/recent.json`;
 
          try {
             const response = await fetch(url);
