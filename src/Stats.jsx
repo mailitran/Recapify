@@ -16,6 +16,11 @@ const StatsRow = () => {
                     <TotalPlaylists />
                 </Col>
                 <TopGenre />
+                <Row>
+                    <div className="container mt-5">
+                        <br></br>
+                    </div>
+                </Row>
             </Row>
         </div>
     );
