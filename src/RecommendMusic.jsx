@@ -50,7 +50,7 @@ function RecommendMusic({ topTracks }) {
     }
     return (        
     <div>
-        <h2>Recommended Songs By Artists You Listen To:</h2>
+        <h3 className="box-title">Song Recommendations</h3>
         <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
         <Card className="rec-box">
                 <Card.Body className="rec-box">
