@@ -1,29 +1,3 @@
-.rec-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 5px 0;
-}
-h5 {
-    text-transform: uppercase;
-    color: #aaaaaa;
-    margin-bottom: 20px;
-}
-.item-number {
-    font-weight: bold;
-    font-size: 20px;
-    margin-right: 40px;
-}
-.track-info {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.track-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 .rec-box {
     background-color: #333333;
     border-radius: 15px;
@@ -31,8 +5,61 @@ h5 {
     color: #ffffff;
 }
 
+.rec-box h5 {
+    text-transform: uppercase;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+}
+
+.rec-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 5px 0;
+}
+
+.item-number {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 40px;
+}
+
+.track-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.rec-track-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.rec-track-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.track-name {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+}
+
+.error-message {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Mobile screens */
 @media (max-width: 768px) {
-    .artist-circle, .track-circle {
+    .rec-track-circle {
         width: 50px;
         height: 50px;
     }
@@ -41,11 +68,11 @@ h5 {
         font-size: 14px;
     }
 
-    .top-box {
+    .rec-box {
         padding: 10px;
     }
 
-    .artist-name, .track-name {
+    .track-name {
         font-size: 14px;
     }
 }

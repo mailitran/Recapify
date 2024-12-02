@@ -50,7 +50,7 @@ function RecommendMusic({ topTracks }) {
     }
     return (        
     <div>
-        <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
+        <Col xs={12} sm={12} md={12} lg={12} className="mb-4">
         <Card className="rec-box">
                 <Card.Body className="rec-box">
                 <h5>Recommended Songs By Artists You Listen To:</h5>
@@ -59,11 +59,11 @@ function RecommendMusic({ topTracks }) {
                     <div key={index} className = "rec-item">
                         <span className="item-number">{index + 1}</span>
                         <div className="track-info">
-                        <div className="track-circle">
+                        <div className="rec-track-circle">
                             <img
                                 src={track.album.images[0]?.url}
                                 alt={track.name}
-                                className="track-image"
+                                className="rec-track-image"
                             />                       
                         </div>
                         <p>
