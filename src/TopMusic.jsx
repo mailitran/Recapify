@@ -36,6 +36,7 @@ function TopMusic() {
                 setTopArtists(data.items);
             } else if (type === 'tracks') {
                 setTopTracks(data.items);
+                console.log(data.items);
             }
         } catch (err) {
             console.error(err);
@@ -74,7 +75,7 @@ function TopMusic() {
                                 alt={type === 'artist' ? item.name : item.name}
                                 className={type === 'artists' ? "img-fluid artist-image" : "img-fluid track-image"}                            />
                         </div>
-                        <p className={type === 'artist' ? "artist-name" : "track-name"}>{item.name}</p>
+                        <p className={type === 'artist' ? "top-artist-name" : "top-track-name"}>{item.name}</p>
                     </Card.Body>
                 </Card>
             </Col>
