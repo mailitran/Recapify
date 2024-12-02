@@ -4,6 +4,11 @@
     margin-bottom: 15px;
     padding: 5px 0;
 }
+h5 {
+    text-transform: uppercase;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+}
 .item-number {
     font-weight: bold;
     font-size: 20px;

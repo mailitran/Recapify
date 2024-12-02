@@ -50,10 +50,10 @@ function RecommendMusic({ topTracks }) {
     }
     return (        
     <div>
-        <h2>Recommended Songs By Artists You Listen To:</h2>
         <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
         <Card className="rec-box">
                 <Card.Body className="rec-box">
+                <h5>Recommended Songs By Artists You Listen To:</h5>
             {musicRec.length > 0 ? (
                 musicRec.map((track, index) => (
                     <div key={index} className = "rec-item">
