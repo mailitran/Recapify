@@ -1,4 +1,4 @@
-import { Container, Navbar, Dropdown } from 'react-bootstrap';
+import { Container, Navbar, Nav, Dropdown } from 'react-bootstrap';
 import { logOutClick } from './AuthUtil.jsx';
 
 function NavigationBar({ userData }) {
@@ -11,9 +11,16 @@ function NavigationBar({ userData }) {
                         fontSize: '2rem',
                         fontWeight: 'bold'
                     }}>Recapify</Navbar.Brand>
-
+                <Nav className="me-auto">
+                    <Nav.Link href="/dashboard" className="text-white">
+                        Dashboard
+                    </Nav.Link>
+                    <Nav.Link href="/explore" className="text-white">
+                        Explore
+                    </Nav.Link>
+                </Nav>
                 <Navbar.Toggle aria-controls="navbar-nav" />
-
+                
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
                         <Dropdown>
