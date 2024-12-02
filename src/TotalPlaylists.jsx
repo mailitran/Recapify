@@ -46,7 +46,6 @@ const TotalPlaylists = () => {
     }
 
     return (
-        <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
             <Card className="top-box">
                 <Card.Body>
                     <h5>Total Playlists Followed or Owned</h5>
@@ -63,7 +62,6 @@ const TotalPlaylists = () => {
                     </div>
                 </Card.Body>
             </Card>
-        </Col>
     );
 };
 
