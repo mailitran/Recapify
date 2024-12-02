@@ -89,11 +89,12 @@ function TopItems() {
                 {/* Top Artist Cards */}
                 {renderTopItems(topArtists, 'artist')}
             </Row>
-            <h3 className="box-title">Top 3 Tracks</h3>
+            <h3 className="box-title mt-5">Top 3 Tracks</h3>
             <Row className="mt-3">
                 {/* Top Track Cards */}
                 {renderTopItems(topTracks, 'track')}
             </Row>
+            <h3 className="box-title mt-5">Song Recommendations</h3>
             {topTracks && <RecommendMusic topTracks={topTracks} />}
         </div>
     )
