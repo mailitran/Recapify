@@ -70,7 +70,7 @@ function RecommendMusic({ topTracks }) {
                 </div>
             ))
         ) : (
-            <p>No recommendations available yet.</p>
+            <p>No recommendations available yet..</p>
         )}
     </div>
 );
