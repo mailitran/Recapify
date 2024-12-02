@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Alert, Card } from 'react-bootstrap';
-import { clientId, tokenEndpoint, saveTokens, logOutClick } from '../AuthUtil.jsx';
+import { clientId, tokenEndpoint, saveTokens } from '../AuthUtil.jsx';
 
 import NavigationBar from '../NavigationBar.jsx';
 import TopSongs from './TopSongs.jsx';
@@ -8,6 +8,8 @@ import TopSongs from './TopSongs.jsx';
 function Explore(){
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const albums = "billboard-200";
     const songs = "billboard-hot-100";
     
@@ -52,9 +54,9 @@ function Explore(){
         } catch (err) {
             setError('Unable to fetch user data. App is in development mode. Only authorized users can be authenticated.');
             //setShowErrorModal(true);
-        } //finally {
-        //     setLoading(false);
-        // }
+        } finally {
+           setLoading(false);
+         }
     }
 
     // Refresh the access token if expired
@@ -85,7 +87,7 @@ function Explore(){
         } catch (err) {
             console.error(err);
             setError("Unable to refresh token. Please try logging in again");
-            //setLoading(false);
+            setLoading(false);
         }
     }
     if (error) {
@@ -97,30 +99,30 @@ function Explore(){
     }
     return (
         <Container fluid>
-            <>
-
-            {/*<NavigationBar userData={userData} />*/}
-                <Row className="mt-5">
-                    <h2>Explore</h2>
-                    <hr/>
-                    <Col lg={12}>
-                    <Card bg="dark" text="white" className="p-4 rounded shadow">
+            {!error && !loading && (
+               <>
+                <NavigationBar userData={userData} />
+                    <Row className="mt-5">
+                        <Col lg={12}>
+                        <Card bg="dark" text="white" className="p-4 rounded shadow">
+                            
+                            <Card.Body>
+                                <h5>THIS WEEK: TOP SONGS</h5>
+                                <TopSongs chart={songs}/>
+                            </Card.Body>
+                        </Card>
                         
-                        <Card.Body>
-                            <h5>THIS WEEK: TOP SONGS</h5>
-                            <TopSongs chart={songs}/>
-                        </Card.Body>
-                    </Card>
-                    
-                    <Card bg="dark" text="white" className="p-4 rounded shadow">
-                        <Card.Body>
-                            <h5>THIS WEEK: TOP SONGS</h5>
-                            <TopSongs chart={albums}/>
-                        </Card.Body>
-                    </Card>                        
-                    </Col>
-                </Row>
-            </>
+                        <Card bg="dark" text="white" className="p-4 rounded shadow">
+                            <Card.Body>
+                                <h5>THIS WEEK: TOP SONGS</h5>
+                                <TopSongs chart={albums}/>
+                            </Card.Body>
+                        </Card>                        
+                        </Col>
+                    </Row>
+            </> 
+            )}
+            
         </Container>
     )
 }
