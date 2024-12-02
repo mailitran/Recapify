@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import './TopMusic.css';
+import './RecommendMusic.css';
 
 
 function RecommendMusic({ topTracks }) {
@@ -67,9 +67,6 @@ function RecommendMusic({ topTracks }) {
                             <strong>{track.name}</strong> by {track.artists.map(artist => artist.name).join(', ')}
                         </p>
                     </div>
-                    <p>
-                            ____________________________________________________________________________________________
-                        </p>
                 </div>
             ))
         ) : (
