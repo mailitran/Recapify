@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Card, Row, Col, Spinner } from 'react-bootstrap';
 import './TopMusic.css';
-
+import './RecommendMusic';
+import RecommendMusic from './RecommendMusic';
 const limit = 5;
 
 function TopItems() {
@@ -104,6 +105,7 @@ function TopItems() {
                     </Card>
                 </Col>
             </Row>
+            {topTracks && <RecommendMusic topTracks={topTracks} />}
         </div>
     )
 }

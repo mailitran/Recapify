@@ -1,0 +1,39 @@
+.rec-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 5px 0;
+}
+.item-number {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 40px;
+}
+.track-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.track-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media (max-width: 768px) {
+    .artist-circle, .track-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .item-number {
+        font-size: 14px;
+    }
+
+    .top-box {
+        padding: 10px;
+    }
+
+    .artist-name, .track-name {
+        font-size: 14px;
+    }
+}
