@@ -120,8 +120,6 @@ function Dashboard() {
                             <Col lg={12}>
                                 <ListeningTime />
                             </Col>
-                            <TotalPlaylists />
-
                         </Row>
                         {/* Add more rows/columns for other components */}
                     </>
