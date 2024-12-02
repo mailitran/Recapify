@@ -6,7 +6,7 @@ import RecommendMusic from './RecommendMusic';
 
 const limit = 3;
 
-function TopItems() {
+function TopMusic() {
     const [topArtists, setTopArtists] = useState([]);
     const [topTracks, setTopTracks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -100,4 +100,4 @@ function TopItems() {
     )
 }
 
-export default TopItems;
+export default TopMusic;
