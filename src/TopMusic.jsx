@@ -7,10 +7,10 @@ import RecommendMusic from './RecommendMusic';
 const limit = 3; // Limit number of items to fetch (Top 3)
 
 function TopMusic() {
-    const [topArtists, setTopArtists] = useState([]);
-    const [topTracks, setTopTracks] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [topArtists, setTopArtists] = useState([]); // Store top artists
+    const [topTracks, setTopTracks] = useState([]); // Store top tracks
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [error, setError] = useState(null); // Store error message
 
     useEffect(() => {
         getTopMusic('artists');
@@ -68,6 +68,7 @@ function TopMusic() {
             return <div className="error-message">No {type} available.</div>;
         }
 
+        // Render each card for artist or track
         return items.map((item, index) => (
             <Col key={index} xs={12} sm={4} md={4} lg={4} className="mb-4">
                 <Card className="top-box">

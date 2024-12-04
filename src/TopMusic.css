@@ -1,38 +1,41 @@
+/* Section titles */
 .box-title {
     font-size: 25px;
     font-weight: bold;
-    color: #c7c7c7;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #444;
+    color: #c7c7c7; /* Light grey text */
+    padding-bottom: 10px; /* Space below title */
+    border-bottom: 1px solid #444; /* Bottom border */
 }
 
 .top-box h5 {
     text-transform: uppercase;
-    color: #aaaaaa;
+    color: #aaaaaa; /* Light grey text */
     /* margin-bottom: 20px; */
 }
 
+/* Square container for top artists and tracks */
 .artist-square, .track-square {
-    width: 100%;
-    max-width: 500px;
+    width: 100%; /* Full width */
+    max-width: 500px; /* Max width on large screen sizes */
     height: 0;
-    padding-bottom: 100%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
+    padding-bottom: 100%; /* 1:1 aspect ratio */
+    position: relative; /* Relative position for absolute children */
+    overflow: hidden; /* Hide overflowed content */
+    border-radius: 10px; /* Rounded corners */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
     margin-bottom: 10px;
 }
 
+/* Artist and track images in square container */
 .artist-image, .track-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    object-fit: cover; /* Cover the squre container */
+    position: absolute; /* Absolute positioning */
+    top: 0; /* Top alignment */
+    left: 0; /* Left alignment */
 }
 
 .top-artist-name, .top-track-name {
@@ -40,7 +43,7 @@
     font-weight: normal;
     color: white;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 20px; /* Space above text */
     width: 100%;
 }
 
@@ -53,13 +56,13 @@
 /* Mobile screens */
 @media (max-width: 768px) {
     .artist-square, .track-square {
-        max-width: 200px;
+        max-width: 200px; /* Adjust max width */
         height: 0;
-        padding-bottom: 100%;
+        padding-bottom: 100%; /* Maintain aspect ratio */
     }
 
     .top-box {
-        padding: 10px;
+        padding: 10px; /* Adjust padding */
     }
 
     .artist-name, .track-name {
