@@ -7,10 +7,10 @@ import TopMusic from './TopMusic.jsx';
 import Stats from './Stats.jsx';
 
 function Dashboard() {
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [userData, setUserData] = useState(null); // Store user data
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [error, setError] = useState(null); // Store error message
+    const [showErrorModal, setShowErrorModal] = useState(false); // Control error modal visibility
 
     // Fetch user data when the access token is available or refreshed
     useEffect(() => {
@@ -32,10 +32,10 @@ function Dashboard() {
             }
 
             const data = await response.json();
-            setUserData(data);
+            setUserData(data); // Store fetched user data
         } catch (err) {
             setError('Unable to fetch user data. App is in development mode. Only authorized users can be authenticated.');
-            setShowErrorModal(true);
+            setShowErrorModal(true); // Show error modal on failure
         } finally {
             setLoading(false);
         }
@@ -44,7 +44,7 @@ function Dashboard() {
     // Close the error modal and log out
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
-        logOutClick();
+        logOutClick(); // Log out the user and clear authentication data
     };
 
     return (
@@ -64,6 +64,7 @@ function Dashboard() {
                 )}
             </Container>
 
+            {/* Display error modal if API request fails */}
             <ErrorModal
                 show={showErrorModal}
                 error={error}
