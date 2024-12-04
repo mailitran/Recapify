@@ -4,7 +4,7 @@ import './TopMusic.css';
 import './RecommendMusic';
 import RecommendMusic from './RecommendMusic';
 
-const limit = 3;
+const limit = 3; // Limit number of items to fetch (Top 3)
 
 function TopMusic() {
     const [topArtists, setTopArtists] = useState([]);
@@ -21,6 +21,7 @@ function TopMusic() {
     const getTopMusic = async (type) => {
         try {
             const access_token = localStorage.getItem('access_token');
+
             const response = await fetch(`https://api.spotify.com/v1/me/top/${type}?limit=${limit}`, {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + access_token },
@@ -32,11 +33,11 @@ function TopMusic() {
 
             const data = await response.json();
 
+            // Set state for respective type
             if (type === 'artists') {
                 setTopArtists(data.items);
             } else if (type === 'tracks') {
                 setTopTracks(data.items);
-                console.log(data.items);
             }
         } catch (err) {
             console.error(err);
@@ -49,7 +50,7 @@ function TopMusic() {
         }
     }
 
-    // Loading spinner
+    // Show loading spinner while fetching data
     const renderLoading = () => (
         <div className="text-center">
             <Spinner animation="border" variant="primary" />
@@ -58,9 +59,10 @@ function TopMusic() {
 
     // Render top music (artists or tracks)
     const renderTopItems = (items, type) => {
-        if (loading) return renderLoading();
+        if (loading) return renderLoading(); // Show spinner if loading
         if (error) return <div className="error-message">{error}</div>;
 
+        // Show error message if no items are available
         if (items.length === 0) {
             return <div className="error-message">No {type} available.</div>;
         }
