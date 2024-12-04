@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { clientId, tokenEndpoint, saveTokens, logOutClick } from './AuthUtil.jsx';
 import { Container, Row, Col } from 'react-bootstrap';
+import { logOutClick } from './AuthUtil.jsx';
 import NavigationBar from './NavigationBar.jsx';
 import ErrorModal from './ErrorModal.jsx';
 import TopMusic from './TopMusic.jsx';
@@ -15,25 +15,6 @@ function Dashboard() {
     // Fetch user data when the access token is available or refreshed
     useEffect(() => {
         getUserData();
-    }, []);
-
-    // Automatically refresh the token before it expires
-    useEffect(() => {
-        const intervalId = setInterval(async () => {
-            let expiry_date = new Date(localStorage.getItem('expiry_date'));
-            const now = new Date();
-
-            const deadband = 5 * 60 * 1000;  // Set a 5 minute deadband (5 minutes in milliseconds)
-            expiry_date = new Date(expiry_date.getTime() - deadband);
-
-            if (expiry_date <= now) {
-                // Token has expired, refresh it
-                const data = await refreshToken();
-                saveTokens(data);
-            }
-        }, 60000); // 1 minute in milliseconds
-
-        return () => clearInterval(intervalId);
     }, []);
 
     // Fetch user data
@@ -60,39 +41,7 @@ function Dashboard() {
         }
     }
 
-    // Refresh the access token if expired
-    const refreshToken = async () => {
-        try {
-            const refresh_token = localStorage.getItem('refresh_token');
-
-            const payload = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    grant_type: 'refresh_token',
-                    refresh_token: refresh_token,
-                    client_id: clientId
-                }),
-            }
-
-            const response = await fetch(tokenEndpoint, payload);
-            const data = await response.json();
-
-            if (!data.access_token) {
-                throw new Error('Failed to refresh access token');
-            }
-
-            return data;
-        } catch (err) {
-            console.error(err);
-            setError("Unable to refresh token. Please try logging in again");
-            setLoading(false);
-        }
-    }
-
-    // Close the error modal
+    // Close the error modal and log out
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
         logOutClick();
