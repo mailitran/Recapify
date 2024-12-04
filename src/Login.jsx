@@ -3,8 +3,8 @@ import './Login.css';
 import { clientId, redirectUrl } from './AuthUtil.jsx';
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
+// Authorization scopes for Spotify API requests
 const scope = 'user-read-private user-read-email user-top-read user-read-recently-played playlist-read-private';
-
 
 function Login() {
     const redirectToSpotifyAuthorize = async () => {
@@ -23,7 +23,7 @@ function Login() {
             response_type: 'code',
             client_id: clientId,
             scope: scope,
-            code_challenge_method: 'S256',
+            code_challenge_method: 'S256', // SHA256 hash algorithm
             code_challenge: codeChallenge,
             redirect_uri: redirectUrl,
         };
