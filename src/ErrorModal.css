@@ -1,14 +1,15 @@
+/* Modal container */
 .modal-content {
-    background-color: #333333;
+    background-color: #333333; /* Dark background color */
     text-align: center;
-    border-radius: 15px;
+    border-radius: 15px; /* Rounded corners */
 }
 
 .modal-header {
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: none; /* Remove default border */
+    display: flex; /* Use flexbox for responsiveness */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
     text-transform: uppercase;
 }
 
@@ -16,7 +17,7 @@
     color: #ffffff;
     font-weight: bold;
     text-align: center;
-    width: 100%;
+    width: 100%; /* Full width */
 }
 
 .modal-body {
