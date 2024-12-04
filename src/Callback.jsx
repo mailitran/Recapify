@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { clientId, redirectUrl, tokenEndpoint, saveTokens } from './AuthUtil.jsx';
 
 function Callback() {
+    // Navigate to different routes
     const navigate = useNavigate();
 
     // Parse the URL to retrieve the code parameter
@@ -23,6 +24,7 @@ function Callback() {
                         const updatedUrl = url.search ? url.href : url.href.replace('?', '');
                         window.history.replaceState({}, document.title, updatedUrl);
 
+                        // Navigate to dashboard (user is authenticated)
                         navigate('/dashboard');
                     } else {
                         console.error('Failed to fetch tokens');
