@@ -14,7 +14,7 @@ function TopMusic() {
 
     useEffect(() => {
         getTopMusic('artists');
-        getTopMusic('tracks')
+        getTopMusic('tracks');
     }, []);
 
     // Retrieve the top tracks/artists
@@ -33,7 +33,7 @@ function TopMusic() {
 
             const data = await response.json();
 
-            // Set state for respective type
+            // Update state based on type (artists or tracks)
             if (type === 'artists') {
                 setTopArtists(data.items);
             } else if (type === 'tracks') {
@@ -41,6 +41,7 @@ function TopMusic() {
             }
         } catch (err) {
             console.error(err);
+            // Display error status, otherwise error message if network error
             const errorMessage = err.response
                 ? `Error: ${err.response.status} ${err.response.statusText} - Failed to fetch top ${type}`
                 : `Network Error: ${err.message || 'Unknown error'}`;
