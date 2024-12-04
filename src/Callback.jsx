@@ -16,6 +16,7 @@ function Callback() {
                 try {
                     const data = await getToken(code);
                     if (data && data.access_token) {
+                        // Save tokens to local storage
                         saveTokens(data);
 
                         // Remove code parameter from URL
@@ -34,28 +35,31 @@ function Callback() {
                 }
             };
 
+            // Fetch token if code is available
             fetchToken();
         }
     }, [code]);
 
     // Exchange the authorization code for an access token
     const getToken = async code => {
+        // Retrieve code_verifier for PKCE extension
         const code_verifier = localStorage.getItem('code_verifier');
 
         const payload = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded', // URL encoded body
             },
             body: new URLSearchParams({
                 client_id: clientId,
                 grant_type: 'authorization_code',
                 code: code,
                 redirect_uri: redirectUrl,
-                code_verifier: code_verifier,
+                code_verifier: code_verifier, // Security check with PKCE
             }),
         };
 
+        // Send POST request to exchange code for token
         const response = await fetch(tokenEndpoint, payload);
 
         if (!response.ok) {
@@ -66,7 +70,7 @@ function Callback() {
     }
 
     return (
-        <></>
+        <></> // Redirects to dashboard, no UI needed
     )
 }
 
