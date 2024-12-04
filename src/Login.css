@@ -1,18 +1,19 @@
 .login-card {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Full width of parent container */
+    height: auto; /* Auto height adjustment based on content */
     background-color: black;
     color: white;
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 15px; /* Rounded corners */
 }
 
+/* Center content in card */
 .card-body-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    flex-direction: column;
+    display: flex; /* Use flexbox for responsiveness */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: 100%; /* Full height */
+    flex-direction: column; /* Stack items vertically */
 }
 
 .card-title {
@@ -22,24 +23,26 @@
 
 .login-button {
     margin: 1rem 1rem 0 0;
-    border: 0;
-    border-radius: 20px;
-    padding: 0.75rem 3rem;
+    border: 0; /* Remove border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 0.75rem 3rem; /* Vertical and horizontal padding */
     font-size: 0.8rem;
     font-family: Arial, Helvetica, sans-serif;
     text-transform: uppercase;
     font-weight: bold;
-    background-color: #1ed760;
+    background-color: #1ed760; /* Spotify green color */
     color: black;
 }
 
+/* Hover effect for login button */
 .login-button:hover {
     background-color: #1fdf64;
-    cursor: pointer;
+    cursor: pointer; /* Change cursor to pointer */
 }
 
+/* Focus and active state for buttons */
 .login-button:focus,
 .login-button:active {
-    outline: none;
-    box-shadow: none;
+    outline: none; /* Remove outline */
+    box-shadow: none; /* Remove box shadow */
 }
