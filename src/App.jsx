@@ -16,6 +16,7 @@ function App() {
   // periodically checked and refreshed before expiration, maintaining the user's 
   // authentication status throughout the app
   useEffect(() => {
+    // Checks every minute to refresh the token on page load, even if the user is offline
     const intervalId = setInterval(async () => {
       let expiry_date = new Date(localStorage.getItem('expiry_date'));
       // Only checks expiry date if it exists (user has been authenticated)
@@ -71,7 +72,7 @@ function App() {
   // Close the error modal and log out
   const handleCloseErrorModal = () => {
     setShowErrorModal(false);
-    logOutClick();
+    logOutClick(); // Log out the user if there's an error
   };
 
   return (
@@ -83,6 +84,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
       </Routes>
 
+      {/* Display error modal if token refresh fails */}
       <ErrorModal
         show={showErrorModal}
         error={error}
