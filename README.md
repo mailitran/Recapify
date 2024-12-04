@@ -19,7 +19,7 @@ Recapify is currently under development mode. Only users authorized on [Spotify 
 
 3. Open `http://localhost:5173` in a browser.
 
-## Dependencies to install:
+## Dependencies To Install:
 
 - `bootstrap` - ^5.3.3
 - `chart.js` - ^4.4.6
@@ -30,7 +30,7 @@ Recapify is currently under development mode. Only users authorized on [Spotify 
 - `react-dom` - ^18.3.1
 - `react-router-dom` - ^7.0.1
 
-## DevDependencies to install:
+## DevDependencies To Install:
 
 - `@eslint/js` - ^9.13.0
 - `@types/react` - ^18.3.12
