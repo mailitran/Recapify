@@ -1,6 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
 import './ErrorModal.css';
 
+// Displays an error message in a modal
 function ErrorModal({ show, error, onHide }) {
     return (
         <Modal show={show} onHide={onHide} centered>
