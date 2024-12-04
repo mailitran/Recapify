@@ -15,6 +15,7 @@ export const saveTokens = (data) => {
     localStorage.setItem('expiry_date', expiry_date);
 }
 
+// Redirect to log in page
 export const logOutClick = () => {
     localStorage.clear();
     window.location.href = 'http://localhost:5173';
