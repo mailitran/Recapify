@@ -4,11 +4,10 @@ import './RecommendMusic.css';
 
 
 function RecommendMusic({ topTracks }) {
-    console.log("This is test file!")
      const[musicRec, setMusicRec] = useState([]);
      
     useEffect(() => {
-        //Get info from each track
+        //Get info from each top track found in TopMusic
         if (topTracks) {
             getRecommedation(topTracks);
         }
@@ -22,10 +21,13 @@ function RecommendMusic({ topTracks }) {
             const artistID =[...new Set(
                 topTracks.map(track=>track.artists[0]?.id)
             )];
+            //get track IDs
             const trackID = new Set(topTracks.map(track=>track.id));
+            //create array to store found recommended songs
             const getSongs = [];
             
             for( const aID of artistID){
+                //Use API to fetch artist's top tracks via Artist ID (aID)
                 const response = await fetch(
                     `https://api.spotify.com/v1/artists/${aID}/top-tracks?market=US`,
                     {
@@ -35,9 +37,10 @@ function RecommendMusic({ topTracks }) {
                 );
                     const data = await response.json();
                     if(data.tracks){
-                        //find and get rid of songs that match top songs
+                        //Filter out songs that match the ID of songs in TopTracks
                         const newSong = data.tracks.filter(track => !trackID.has(track.id));
                         console.log(newSong);
+                        //add recommended song found to getSongs array
                         getSongs.push(...newSong);
                     }
                 
@@ -48,7 +51,8 @@ function RecommendMusic({ topTracks }) {
         }
         catch(err){}
     }
-    return (        
+    return ( 
+    //display results       
     <div>
         <Col xs={12} sm={6} md={6} lg={6} className="mb-4">
         <Card className="rec-box">
@@ -66,14 +70,14 @@ function RecommendMusic({ topTracks }) {
                                 className="rec-track-image"
                             />                       
                         </div>
-                        <p>
-                            <strong>{track.name}</strong> by {track.artists.map(artist => artist.name).join(', ')}
-                        </p>
+                                <p>
+                                    <strong>{track.name}</strong> by {track.artists.map(artist => artist.name).join(', ')}
+                                </p>
                         </div>
                      </div>
             ))
         ) : (
-            <p>No recommendations available yet..</p>
+            <p>No Recommendations Found</p>
         )}
                     </Card.Body>
             </Card>
