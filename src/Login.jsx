@@ -2,6 +2,10 @@ import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import './Login.css';
 import { clientId, redirectUrl } from './AuthUtil.jsx';
 
+// Spotify Web API implements the OAuth 2.0 authorization framework
+// Recapify uses Authorization Code Flow with PKCE Extension for secure authentication, 
+// as there is no backend database to safely store the client secret.
+
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 // Authorization scopes for Spotify API requests
 const scope = 'user-read-private user-read-email user-top-read user-read-recently-played playlist-read-private';

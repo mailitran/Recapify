@@ -17,11 +17,12 @@ function TopMusic() {
         getTopMusic('tracks');
     }, []);
 
-    // Retrieve the top tracks/artists
+    // Retrieve the top 3 tracks/artists from the last 6 months
     const getTopMusic = async (type) => {
         try {
             const access_token = localStorage.getItem('access_token');
 
+            // Default time range is approximately within the last 6 months
             const response = await fetch(`https://api.spotify.com/v1/me/top/${type}?limit=${limit}`, {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + access_token },
