@@ -4,12 +4,14 @@ import { Card, Col } from 'react-bootstrap';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './TopGenre.css';
 import TotalPlaylists from './TotalPlaylists';
+import { useTotalListeningTime } from './TotalListeningTimeContext'; // Import the context
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ListeningTime = () => {
     const [chartData, setChartData] = useState(null);
     const [error, setError] = useState(null);
+    const { setTotalListeningTime } = useTotalListeningTime(); // Access setTotalListeningTime from context to update total listening time
 
     useEffect(() => {
         const fetchListeningData = async () => {
@@ -41,7 +43,9 @@ const ListeningTime = () => {
                 }
 
                 const listeningData = processListeningData(data.items);
-                setChartData(listeningData);
+                setChartData(listeningData.chartData);
+                // Update totalListeningTime in context with the new value
+                setTotalListeningTime(listeningData.totalListeningTime);
             } catch (error) {
                 console.error('Error fetching data:', error.message);
                 setError('Failed to load listening time data');
@@ -55,6 +59,7 @@ const ListeningTime = () => {
         const dailyListening = Array(7).fill(0);
         const today = new Date();
         const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+        let totalListeningTime = 0;
 
         items.forEach((item) => {
             const playedAt = new Date(item.played_at).getTime();
@@ -64,19 +69,25 @@ const ListeningTime = () => {
             }
         });
 
+        // Calculate the total listening time by summing up all values in dailyListening array
+        totalListeningTime = dailyListening.reduce((acc, time) => acc + time, 0);
+
         return {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [
-                {
-                    label: 'Listening Time (hours)',
-                    data: dailyListening,
-                    fill: false,
-                    borderColor: '#36A2EB',
-                    tension: 0.1,
-                    pointBackgroundColor: '#36A2EB',
-                    pointRadius: 5,
-                },
-            ],
+            chartData: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [
+                    {
+                        label: 'Listening Time (hours)',
+                        data: dailyListening,
+                        fill: false,
+                        borderColor: '#36A2EB',
+                        tension: 0.1,
+                        pointBackgroundColor: '#36A2EB',
+                        pointRadius: 5,
+                    },
+                ],
+            },
+            totalListeningTime,
         };
     };
 
@@ -89,10 +100,10 @@ const ListeningTime = () => {
     }
 
     return (
-         <Card className="top-box">
+        <Card className="top-box">
             <Card.Body>
                 <h5>Listening Time by Day</h5>
-                <Line data={chartData} />
+                <Line data={chartData} className="mb-3" />
             </Card.Body>
         </Card>
     );
