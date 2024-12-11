@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { clientId, tokenEndpoint, saveTokens, logOutClick } from './AuthUtil.jsx';
 import Login from './Login.jsx';
 import Callback from './Callback.jsx';
@@ -11,28 +11,22 @@ function App() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [error, setError] = useState(null);
 
-  // Automatically refresh the token before it expires
+  // Automatically refresh the token before it expires (60 minutes)
   // The interval runs across all pages to ensure that the access token is 
   // periodically checked and refreshed before expiration, maintaining the user's 
   // authentication status throughout the app
   useEffect(() => {
-    // Checks every minute to refresh the token on page load, even if the user is offline
+    // Checks every 58 minutes to refresh the token on component mount
     const intervalId = setInterval(async () => {
-      let expiry_date = new Date(localStorage.getItem('expiry_date'));
-      // Only checks expiry date if it exists (user has been authenticated)
-      if (expiry_date) {
-        const now = new Date();
+      let access_token = localStorage.getItem('access_token');
 
-        const deadband = 5 * 60 * 1000; // Set a 5 minute deadband (5 minutes in milliseconds)
-        expiry_date = new Date(expiry_date.getTime() - deadband);
-
-        if (expiry_date <= now) {
-          // Token has expired, refresh it
-          const data = await refreshToken();
-          saveTokens(data);
-        }
+      // Only proceed if expiry date exists (user has been authenticated)
+      if (access_token) {
+        // Refresh token before token expires
+        const data = await refreshToken();
+        saveTokens(data);
       }
-    }, 60000); // 1 minute in milliseconds
+    }, 3480000); // 58 minutes in milliseconds
 
     return () => clearInterval(intervalId);
   }, []);
