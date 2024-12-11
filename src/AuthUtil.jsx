@@ -18,6 +18,14 @@ export const saveTokens = (data) => {
     localStorage.setItem('refresh_token', refresh_token);
     localStorage.setItem('expires_in', expires_in);
     localStorage.setItem('expiry_date', expiry_date);
+
+    saveUserToDb(null, access_token, refresh_token, expiry_date)
+        .then(() => {
+            console.log("user saved");
+        })
+        .catch((error) => {
+            console.error("error saving user:", error);
+        });
 }
 
 // Redirect to log in page
@@ -26,3 +34,60 @@ export const logOutClick = () => {
     localStorage.clear();
     window.location.href = 'http://localhost:5173';
 }
+
+export const fetchSpotifyUserId = async () => {
+    const accessToken = localStorage.getItem('access_token'); // Retrieve access token from localStorage
+
+    if (!accessToken) {
+        console.error('Access token is missing. Please log in.');
+        return null;
+    }
+
+    try {
+        const response = await fetch('https://api.spotify.com/v1/me', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${accessToken}`, // Add the access token to the request
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user profile. Please check your token.');
+        }
+
+        const data = await response.json();
+        return data.id; // Spotify user ID is returned
+    } catch (error) {
+        console.error('Error fetching Spotify user profile:', error);
+        return null;
+    }
+};
+
+const saveUserToDb = async (userId, accessToken, refreshToken, tokenExpiry) => {
+    try {
+        if(!userId){
+            userId = await fetchSpotifyUserId();
+        }
+        localStorage.setItem("userID", userId);
+        const response = await fetch('http://localhost:5678/auth/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                spotifyId: userId,
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+                tokenExpiry: tokenExpiry,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to save user to backend');
+        }
+
+        console.log('User saved successfully');
+    } catch (error) {
+        console.error('Error saving user to backend:', error);
+    }
+};

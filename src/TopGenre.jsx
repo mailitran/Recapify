@@ -8,11 +8,39 @@ function TopGenre() {
     const [topGenre, setTopGenre] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const userId = localStorage.getItem("userID");
     useEffect(() => {
         getTopGenre();
+        //syncRecentlyPlayedData(userId, localStorage.getItem("access_token", null));
     }, []);
+    
 
+    // const syncRecentlyPlayedData = async (userId, access_token) => {
+    //     try {
+    //       const response = await fetch('http://localhost:5678/sync-recently-played', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //           userId,
+    //           access_token,
+    //           after: null 
+    //         }),
+    //       });
+      
+    //       // Parse the response from the server
+    //       const result = await response.json();
+      
+    //       if (response.ok) {
+    //         console.log('Tracks synced successfully:', result.message);
+    //       } else {
+    //         console.error('Error syncing tracks:', result.error);
+    //       }
+    //     } catch (error) {
+    //       console.error('Network error occurred while syncing:', error);
+    //     }
+    //   };
     const getTopGenre = async () => {
         try {
             const access_token = localStorage.getItem('access_token');
