@@ -21,7 +21,7 @@ function NavigationBar({ userData }) {
                     </Nav.Link>
                 </Nav>
                 <Navbar.Toggle aria-controls="navbar-nav" />
-                
+
                 {/* Profile dropdown */}
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
@@ -34,7 +34,7 @@ function NavigationBar({ userData }) {
                                     className="rounded-circle me-2"
                                     style={{ width: '30px', height: '30px' }}>
                                 </img>
-                                {userData.display_name}
+                                {userData?.display_name || 'Guest'}
                             </Dropdown.Toggle>
 
                             {/* Log out dropdown */}
