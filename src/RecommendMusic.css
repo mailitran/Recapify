@@ -1,7 +1,7 @@
 /*used for RecommendMusic.jsx to format display of recommended songs */
 .rec-box {
     background-color: #333333; /*Same color as other display boxes in TopGenre & TopMusic*/
-    width: 1300px;
+    max-width: 100%;
     height: 500px;
     border-radius: 15px;
     color: #ffffff;
