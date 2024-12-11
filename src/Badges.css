@@ -1,0 +1,43 @@
+.badge-container {
+    text-align: center; /* Center context vertically */
+}
+
+/* Styling for the badge container */
+.badge {
+    display: flex; /* Flexbox for alignment */
+    flex-direction: column; /* Aligns content vertically */
+    align-items: center; /* Centers content horizontally */
+    gap: 10px; /* Adds space between badge and text */
+}
+
+.badge span {
+    font-size: 1.75rem; /* Makes the badge icon slightly larger */
+    margin-bottom: 5px;
+}
+
+.badge p {
+    font-size: 1rem; /* Smaller font size */
+    margin-top: 10px;
+    color: #a7a7a7; /* Muted color for the time text */
+}
+
+/* Gold Badge */
+.badge-gold {
+    color: gold; /* Sets the gold badge color */
+}
+
+/* Silver Badge */
+.badge-silver {
+    color: silver; /* Sets the silver badge color */
+}
+
+/* Bronze Badge */
+.badge-bronze {
+    color: #cd7f32; /* Sets the bronze badge color */
+}
+
+/* No Badge */
+.badge-container .no-badge {
+    font-style: italic; /* Italicizes "No Badge" text */
+    color: #999; /* Light grey color */
+}
