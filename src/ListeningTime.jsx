@@ -3,16 +3,18 @@ import { Line } from 'react-chartjs-2';
 import { Card, Col } from 'react-bootstrap';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './TopGenre.css';
-import TotalPlaylists from './TotalPlaylists';
 import { useTotalListeningTime } from './TotalListeningTimeContext'; // Import the context
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ListeningTime = () => {
+    // State for data and errors
     const [chartData, setChartData] = useState(null);
     const [error, setError] = useState(null);
-    const { setTotalListeningTime } = useTotalListeningTime(); // Access setTotalListeningTime from context to update total listening time
+    // Access setTotalListeningTime from context to update total listening time
+    const { setTotalListeningTime } = useTotalListeningTime(); 
 
+    //Fetching data from Spotify API 
     useEffect(() => {
         const fetchListeningData = async () => {
             const access_token = localStorage.getItem('access_token');
@@ -55,6 +57,7 @@ const ListeningTime = () => {
         fetchListeningData();
     }, []);
 
+    // Calculate listening time for each day of the week
     const processListeningData = (items) => {
         const dailyListening = Array(7).fill(0);
         const today = new Date();
@@ -72,6 +75,7 @@ const ListeningTime = () => {
         // Calculate the total listening time by summing up all values in dailyListening array
         totalListeningTime = dailyListening.reduce((acc, time) => acc + time, 0);
 
+        // Preparing the data and chart 
         return {
             chartData: {
                 labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -91,14 +95,17 @@ const ListeningTime = () => {
         };
     };
 
+    // Handling error
     if (error) {
         return <div>{error}</div>;
     }
 
+    // Message if data is still loading 
     if (!chartData) {
         return <div>Loading...</div>;
     }
 
+    //Render the chart 
     return (
         <Card className="top-box">
             <Card.Body>

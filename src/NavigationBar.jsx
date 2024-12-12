@@ -1,22 +1,23 @@
 import { Container, Navbar, Nav, Dropdown } from 'react-bootstrap';
 import { logOutClick } from './AuthUtil.jsx';
+import './index.css';
 
 // Navigation bar at the top of each page
 function NavigationBar({ userData }) {
     return (
-        <Navbar className="fixed-top w-100" data-bs-theme="dark" expand="lg" style={{ backgroundColor: '#181818' }}>
+        <Navbar className="fixed-top w-100 custom-navbar" data-bs-theme="dark" expand="lg">
             <Container>
                 <Navbar.Brand
                     style={{
-                        // fontFamily: "'Tahoma', sans-serif",
+                        
                         fontSize: '2rem',
                         fontWeight: 'bold'
                     }}>Recapify</Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link href="/dashboard" className="text-white">
+                    <Nav.Link href="/dashboard">
                         Dashboard
                     </Nav.Link>
-                    <Nav.Link href="/explore" className="text-white">
+                    <Nav.Link href="/explore">
                         Explore
                     </Nav.Link>
                 </Nav>
