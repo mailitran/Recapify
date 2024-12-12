@@ -4,11 +4,11 @@ import ListeningTime from './ListeningTime';
 import TotalPlaylists from './TotalPlaylists';
 import TopGenre from './TopGenre.jsx';
 import Badges from './Badges';
-import { TotalListeningTimeProvider } from './TotalListeningTimeContext'; // Import the TotalListeningTime provider
+import { MetricsProvider } from './TotalListeningMetricsContext.jsx'; // Import the TotalListeningTime provider
 
 const StatsRow = () => {
     return (
-        <TotalListeningTimeProvider>
+        <MetricsProvider>
             <div className="container mt-5">
                 <h3 className="box-title">Stats</h3>
                 <Row>
@@ -29,7 +29,7 @@ const StatsRow = () => {
                     </Row>
                 </Row>
             </div>
-        </TotalListeningTimeProvider>
+        </MetricsProvider>
     );
 };
 

@@ -4,14 +4,14 @@ import { Card, Col } from 'react-bootstrap';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './TopGenre.css';
 import TotalPlaylists from './TotalPlaylists';
-import { useTotalListeningTime } from './TotalListeningTimeContext'; // Import the context
+import { useMetrics } from './TotalListeningMetricsContext'; // Import the context
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ListeningTime = () => {
     const [chartData, setChartData] = useState(null);
     const [error, setError] = useState(null);
-    const { setTotalListeningTime } = useTotalListeningTime(); // Access setTotalListeningTime from context to update total listening time
+    const { setTotalListeningTime } = useMetrics(); // Access setTotalListeningTime from context to update total listening time
 
     useEffect(() => {
         const fetchListeningData = async () => {

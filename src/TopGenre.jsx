@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { useMetrics } from './TotalListeningMetricsContext';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -8,6 +9,7 @@ function TopGenre() {
     const [topGenre, setTopGenre] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { setTotalGenres } = useMetrics();
 
     useEffect(() => {
         getTopGenre();
@@ -34,6 +36,11 @@ function TopGenre() {
                 });
                 return acc;
             }, {});
+
+            //get unique genres for setting context
+            const totalUniqueGenres = Object.keys(genreCounts).length;
+            // Update the context with total genres
+            setTotalGenres(totalUniqueGenres);
 
             // Sort genres by count and take the top 10
             const sortedGenres = Object.entries(genreCounts)
