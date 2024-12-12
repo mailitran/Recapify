@@ -3,13 +3,16 @@ import CountUp from 'react-countup';
 import { Card, Col } from 'react-bootstrap';
 
 const TotalPlaylists = () => {
+    //ststes for playlists and errors
     const [playlistCount, setPlaylistCount] = useState(0);
     const [error, setError] = useState(null);
 
+    // useEffect hook to fetch playlist data when component mounts
     useEffect(() => {
         fetchPlaylistsData();
     }, []);
 
+    //function to fetch data from Spotify API 
     const fetchPlaylistsData = async () => {
         const access_token = localStorage.getItem('access_token');
         if (!access_token) {
@@ -17,7 +20,7 @@ const TotalPlaylists = () => {
             setError("Access token not found");
             return;
         }
-
+        // making Api request 
         try {
             const response = await fetch('https://api.spotify.com/v1/me/playlists', {
                 method: 'GET',
@@ -26,6 +29,7 @@ const TotalPlaylists = () => {
                 },
             });
 
+            // getting the error if there is any 
             if (!response.ok) {
                 throw new Error(`Failed to fetch playlists: ${response.status} ${response.statusText}`);
             }
@@ -41,22 +45,25 @@ const TotalPlaylists = () => {
         }
     };
 
+    // If there is an error display it 
     if (error) {
         return <div>{error}</div>;
     }
 
+    //render the component 
     return (
             <Card className="top-box">
                 <Card.Body>
                     <h5>Total Playlists Followed or Owned</h5>
-                    <div className="count-container">
+                    <div>
                         <h1>
+                            {/* Use CountUp for animated number display */}
                             <CountUp
                                 start={0}
                                 end={playlistCount}
-                                duration={2.5}
+                                duration={5}
                                 separator=","
-                                delay={0}
+                                delay={5}
                             />
                         </h1>
                     </div>
